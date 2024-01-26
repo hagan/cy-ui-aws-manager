@@ -1,1 +1,1 @@
-# cy-ui-aws-manager-
+# cy-ui-aws-manager

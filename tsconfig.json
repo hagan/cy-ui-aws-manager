@@ -122,6 +122,7 @@
     "process.d.ts",
     "new-types.d.ts",
     "next-env.d.ts",
+    "server.js",
     "declarations.d.ts",
     "src/**/*.ts",
     "src/**/*.tsx",

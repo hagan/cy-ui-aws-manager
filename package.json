@@ -13,7 +13,11 @@
     "dev": "next dev",
     "build": "npm run lint && next build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "start-server": "node server.js"
+  },
+  "bin": {
+    "awsmgr-start": "./awsmgr-start.sh"
   },
   "repository": {
     "type": "git",

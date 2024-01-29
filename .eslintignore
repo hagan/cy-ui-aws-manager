@@ -1,0 +1,5 @@
+tailwind.config.ts
+next.config.js
+node_modules
+trashcan
+dist

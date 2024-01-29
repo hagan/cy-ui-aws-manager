@@ -54,7 +54,6 @@ internal/
 !tests/baselines/reference/project/nodeModules*/**/*
 .idea
 yarn.lock
-yarn-error.log
 .parallelperf.*
 tests/baselines/reference/dt
 .failed-tests
@@ -63,3 +62,38 @@ package-lock.json
 .eslintcache
 *v8.log
 /lib/
+
+/dist/
+
+*.code-workspace
+
+.env
+.env*.local
+
+# next.js
+.next/
+/out/
+
+# production
+/build/
+
+# misc
+*.pem
+
+# testing
+/coverage/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# don't track what nvm module we're using locally
+.nvmrc

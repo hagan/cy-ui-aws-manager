@@ -97,3 +97,6 @@ next-env.d.ts
 
 # don't track what nvm module we're using locally
 .nvmrc
+
+# Don't track vscode folder
+.vscode/

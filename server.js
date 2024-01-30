@@ -1,11 +1,16 @@
 const express = require("express");
 const next = require("next");
 
+// Load environment vars
+require("dotenv").config({ path: "./.env.local" });
+
+// Maybe need to add tests to check for Environment variables required for project?
+
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const socketPath = "/run/nginx/node-nextjs.socket";
+const socketPath = process.env.NODE_SOCK;
 
 app.prepare().then(() => {
   const server = express();

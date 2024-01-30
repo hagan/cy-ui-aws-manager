@@ -1,5 +1,6 @@
 const express = require("express");
 const next = require("next");
+const fs = require("fs");
 
 // Load environment vars
 require("dotenv").config({ path: "./.env.local" });
@@ -26,6 +27,10 @@ app.prepare().then(() => {
   });
 
   server.listen(socketPath, (err) => {
+    fs.chmod(socketPath, 0o664, (err) => {
+      if (err) throw err;
+      console.log(`Set permissions for socket ${socketPath} to 0664`);
+    });
     if (err) throw err;
     console.log(` Ready on ${socketPath}`);
   });

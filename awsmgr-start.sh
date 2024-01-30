@@ -9,5 +9,7 @@ elif [ ! -d "${AWSMGR_DIR}" ]; then
   echo "ERROR: the directory ${AWSMGR_DIR} does not exist"
   exit 1
 fi
-
-cd ${AWSMGR_DIR} && npm run start-server
+#su -l node -s /bin/bash -c "PATH=/usr/local/bin:/usr/local/bin:/usr/bin:/bin && which node"
+# su - node -s /bin/bash -c "cd ${AWSMGR_DIR} && /usr/local/bin/npm install"
+# su - node -s /bin/bash -c "cd ${AWSMGR_DIR} && /usr/local/bin/npm run start-server"
+# cd ${AWSMGR_DIR} && npm run start-server

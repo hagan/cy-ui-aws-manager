@@ -60,8 +60,7 @@
     "pretty-quick": "^4.0.0",
     "storybook": "^7.6.10",
     "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "ts-node": "^10.9.2"
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.16",
@@ -74,6 +73,7 @@
     "numeral": "^2.0.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "typescript": "^5.3.3"
   }
 }

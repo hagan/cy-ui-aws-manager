@@ -1,6 +1,6 @@
 # cy-ui-aws-manager
 
-NOTE: git lfs install will show an error:
+NOTE: `git lfs install` will show an error:
 
 ```
 Hook already exists: pre-push

@@ -1,8 +1,33 @@
 # cy-ui-aws-manager
 
+NOTE: git lfs install will show an error:
+
+```
+Hook already exists: pre-push
+
+#!/usr/bin/env sh
+. "${0%/*}/h"
+```
+
+The hooks now live in .husky/{post-checkout,post-commit,post-merge,pre-push} and pre-commit being the one used to run lint/testing for our JS project.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+This is a submodule of [cy-aws-manager](https://github.com/hagan/cy-aws-manager)
+Best to git clone that project and then setup ui submodule.
+
 ## Getting Started
+
+Make sure and install [nvm](https://github.com/nvm-sh/nvm) following nvm's instructions.
+Install the current 'stable' release of npm/node
+
+```
+  cd <the cy-aws-manager project dir>/src/ui
+  npm install stable
+  nvm use v21.6.1
+  echo "v21.6.1" > .nvmrc
+  npm install
+```
 
 First, run the development server:
 

@@ -10,6 +10,8 @@ import {
 } from "react-bootstrap";
 import { usePathname } from "next/navigation";
 
+import { FaTerminal } from "react-icons/fa";
+
 // import faviconImage from './public/favicon.png';
 
 export default function NavBar() {
@@ -36,7 +38,11 @@ export default function NavBar() {
               href="/terminal"
               active={pathname === "/terminal"}
             >
-              Terminal
+              <FaTerminal /> Terminal
+            </Nav.Link>
+
+            <Nav.Link as={Link} href="/about" active={pathname === "/about"}>
+              About
             </Nav.Link>
 
             {/* <Nav.Link as={Link} href='/static' active={pathname === '/static'}>

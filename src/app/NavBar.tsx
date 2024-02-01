@@ -8,12 +8,12 @@ import {
   // NavDropdown,
   Navbar,
 } from "react-bootstrap";
-// import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 // import faviconImage from './public/favicon.png';
 
 export default function NavBar() {
-  // const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <Navbar
@@ -31,6 +31,14 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
           <Nav>
+            <Nav.Link
+              as={Link}
+              href="/terminal"
+              active={pathname === "/terminal"}
+            >
+              Terminal
+            </Nav.Link>
+
             {/* <Nav.Link as={Link} href='/static' active={pathname === '/static'}>
               Static
             </Nav.Link>

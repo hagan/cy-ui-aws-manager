@@ -10,7 +10,7 @@ require("dotenv").config({ path: "./.env.local" });
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
-const socketPath = "/tmp/express.sock";
+let socketPath = "/tmp/express.sock";
 if (process.env.NODE_SOCK) {
   socketPath = process.env.NODE_SOCK;
 }

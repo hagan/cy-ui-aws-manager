@@ -2,7 +2,7 @@
   "name": "awsmgr",
   "version": "0.0.1",
   "description": "AWS Manager UX",
-  "main": "index.ts",
+  "main": "server/index.js",
   "private": true,
   "scripts": {
     "test": "jest",
@@ -16,7 +16,7 @@
     "pack": "find ./dist/ -mindepth 1 ! -name '.gitkeep' -exec rm -rf {} + && npm pack && mv awsmgr-?.?.?.tgz ./dist/.",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
-    "start-server": "node server.js"
+    "start-server": "node server/index.js"
   },
   "files": [
     ".next",
@@ -28,18 +28,16 @@
     "next.config.js",
     "public",
     "package.json",
+    "package-lock.json",
     "postcss.config.js",
-    "server.js",
+    "server",
     "src",
     "tsconfig.json"
   ],
   "bin": {
     "awsmgr-start": "./awsmgr-start.sh"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hagan/cy-ui-aws-manager.git"
-  },
+  "repository": "git+https://github.com/hagan/cy-ui-aws-manager.git",
   "author": "Hagan Franks / University of Arizona / Data Science Institute",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {

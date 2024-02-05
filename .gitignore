@@ -53,12 +53,12 @@ internal/
 !tests/cases/projects/NodeModulesSearch/**/*
 !tests/baselines/reference/project/nodeModules*/**/*
 .idea
-yarn.lock
+
 .parallelperf.*
 tests/baselines/reference/dt
 .failed-tests
 TEST-results.xml
-package-lock.json
+
 .eslintcache
 *v8.log
 /lib/

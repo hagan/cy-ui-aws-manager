@@ -66,3 +66,24 @@ app.prepare().then(() => {
     console.log(` Ready on ${socketPath}`);
   });
 });
+
+// Cleanup socket after shutdown
+function cleanupSocketFile() {
+  if (fs.existsSync(socketPath)) {
+    fs.unlinkSync(socketPath);
+    console.log(`Removed socket '${socketPath}'!`);
+  }
+}
+
+// Handle shutdowns
+function shutdown(signal) {
+  console.log(`${signal} received`);
+  server.close(() => {
+    console.log("Server closed");
+    cleanupSocketFile();
+    process.exit(0);
+  });
+}
+
+process.on("SIGINT", shutdown.bind(null, "SIGINT"));
+process.on("SIGTERM", shutdown.bind(null, "SIGTERM"));

@@ -1,5 +1,6 @@
 tailwind.config.ts
 next.config.js
+server
 node_modules
 trashcan
 dist

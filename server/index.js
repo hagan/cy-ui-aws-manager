@@ -31,12 +31,50 @@ if (process.env.NODE_SOCK) {
 }
 
 app.prepare().then(() => {
+  // Cleanup socket after shutdown
+  function cleanupSocketFile() {
+    if (fs.existsSync(socketPath)) {
+      fs.unlinkSync(socketPath);
+      console.log(`Removed socket '${socketPath}'!`);
+    }
+  }
+
   const server = express();
+
+  // Handle shutdowns
+  function shutdown(signal) {
+    console.log(`${signal} received`);
+    server.close(() => {
+      console.log("Server closed");
+      cleanupSocketFile();
+      process.exit(0);
+    });
+  }
+
+  process.on("SIGINT", shutdown.bind(null, "SIGINT"));
+  process.on("SIGTERM", shutdown.bind(null, "SIGTERM"));
 
   // You can add your own express routes here
   server.get("/api/hello", (req, res) => {
     res.send("Hello from Express API");
   });
+
+  function shutDown() {
+    console.log("Received kill signal, shutting down gracefully");
+    server.close(() => {
+      console.log("Server closed");
+      cleanupSocketFile();
+      process.exit(0);
+    });
+
+    setTimeout(() => {
+      console.error(
+        "Could not close connections in time, forcefully shutting down",
+      );
+      process.exit(0);
+    }, 10000);
+    connections.forEach((curr) => curr.end);
+  }
 
   // Handling Next.js page requests
   server.all("*", (req, res) => {
@@ -66,24 +104,3 @@ app.prepare().then(() => {
     console.log(` Ready on ${socketPath}`);
   });
 });
-
-// Cleanup socket after shutdown
-function cleanupSocketFile() {
-  if (fs.existsSync(socketPath)) {
-    fs.unlinkSync(socketPath);
-    console.log(`Removed socket '${socketPath}'!`);
-  }
-}
-
-// Handle shutdowns
-function shutdown(signal) {
-  console.log(`${signal} received`);
-  server.close(() => {
-    console.log("Server closed");
-    cleanupSocketFile();
-    process.exit(0);
-  });
-}
-
-process.on("SIGINT", shutdown.bind(null, "SIGINT"));
-process.on("SIGTERM", shutdown.bind(null, "SIGTERM"));

@@ -5,11 +5,11 @@ if [ $(whoami) != 'node' ]; then
   exit 1
 fi
 
-cd $HOME
+pushd $HOME
 export PATH=$HOME/node_modules/.bin:$PATH
-AWSMGR_DIR=$(npm list awsmgr --parseable)
+export AWSMGR_DIR=$(npm -g list awsmgr --parseable)
 
-if [ "x${AWSMGR_DIR}" == "x" ]; then
+if [ "${AWSMGR_DIR}x" == "x" ]; then
   echo "ERROR: npm package \"awsmgr may be missing..\""
   echo " $ npm list to check if installed."
   exit 1
@@ -20,3 +20,4 @@ else
   echo "cd ${AWSMGR_DIR} and start ExpressJS server..."
   cd ${AWSMGR_DIR} && /usr/bin/npm run start-server
 fi
+popd

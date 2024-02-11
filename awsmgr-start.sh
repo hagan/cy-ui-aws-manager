@@ -7,17 +7,21 @@ fi
 
 pushd $HOME
 export PATH=$HOME/node_modules/.bin:$PATH
-export AWSMGR_DIR=$(npm -g list awsmgr --parseable)
+AWSMGR_DIR_LOCAL=$(npm list awsmgr --parseable) 2>/dev/null
+AWSMGR_DIR_GLOBAL=$(npm -g list awsmgr --parseable) 2>/dev/null
 
-if [ "${AWSMGR_DIR}x" == "x" ]; then
+if [ "x${AWSMGR_DIR_LOCAL}" == "x" ] && [ "x${AWSMGR_DIR_GLOBAL}" == "x" ]; then
   echo "ERROR: npm package \"awsmgr may be missing..\""
-  echo " $ npm list to check if installed."
+  echo " $ npm list or npm -g lsit to check if installed."
   exit 1
-elif [ ! -d "${AWSMGR_DIR}" ]; then
-  echo "ERROR: the directory ${AWSMGR_DIR} does not exist"
+elif [ ! -d "${AWSMGR_DIR_LOCAL}" ] && [ ! -d "${AWSMGR_DIR_GLOBAL}" ]; then
+  echo "ERROR: the node_modules directory for npm does not exist"
   exit 1
-else
-  echo "cd ${AWSMGR_DIR} and start ExpressJS server..."
-  cd ${AWSMGR_DIR} && /usr/bin/npm run start-server
+elif [ "x${AWSMGR_DIR_LOCAL}" != "x" ]; then
+  echo "cd ${AWSMGR_DIR_LOCAL} and start ExpressJS server..."
+  cd ${AWSMGR_DIR_LOCAL} && /usr/bin/npm run start-server
+elif [ "x${AWSMGR_DIR_GLOBAL}" == "x" ]; then
+  echo "cd ${AWSMGR_DIR_GLOBAL} and start ExpressJS server..."
+  cd ${AWSMGR_DIR_GLOBAL} && /usr/bin/npm -g run start-server
 fi
 popd

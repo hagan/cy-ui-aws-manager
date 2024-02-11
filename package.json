@@ -80,6 +80,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^5.0.16",
+    "@godaddy/terminus": "^4.12.1",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.3.2",
     "cookie-parser": "^1.4.6",

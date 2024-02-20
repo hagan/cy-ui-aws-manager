@@ -4,6 +4,9 @@
   "description": "AWS Manager UX",
   "main": "server/index.js",
   "private": true,
+  "_moduleAliases": {
+    "@": "src"
+  },
   "scripts": {
     "test": "jest",
     "format": "pretty-quick --no-restage",
@@ -87,6 +90,7 @@
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "next": "^14.1.0",
     "node": "^21.6.1",
     "numeral": "^2.0.6",

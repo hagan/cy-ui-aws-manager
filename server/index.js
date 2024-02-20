@@ -5,6 +5,7 @@ const next = require("next");
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
+const module = require("@deep/module");
 
 // $HOME/.env.local <= where we can put our environment vars
 const localEnvPath = path.join(process.env.HOME, ".env.local");

@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 SCRIPT_DIR=$(cd -- "$(dirname -- "$0")" && pwd)
-
+sdfgsadfhbwstrejnsnfgwsjnrts
 ## Assumes we've installed the awsmgr package
 if [ $(whoami) != 'node' ]; then
   echo "ERROR: must run awsmgr-start as 'node' user. Currently running as: $(whoami)"

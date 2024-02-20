@@ -15,7 +15,7 @@
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ] /* Specify a set of bundled library declaration files that describe the target runtime environment. was: [] */,
     "jsx": "preserve" /* Specify what JSX code is generated. was: preserve */,
     // "experimentalDecorators": true,                   /* Enable experimental support for legacy experimental decorators. */
@@ -32,7 +32,7 @@
     "module": "esnext" /* Specify what module code is generated. : was commonjs*/,
     // "rootDir": "./",                                  /* Specify the root folder within your source files. */
     "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. was: node10, bundler*/,
-    "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
+    "baseUrl": "." /* Specify the base directory to resolve non-relative module names. */,
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
@@ -111,12 +111,13 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "paths": {
-      "@/*": ["src/*"]
-    }
+      // "@/": ["src/*"]
+      "@/components/*": ["src/components/*"],
+    },
   },
   "include": [
     "process.d.ts",
@@ -128,8 +129,8 @@
     "src/**/*.tsx",
     ".next/types/**/*.ts",
     "test/**/*.js",
-    "src/components/components.js"
+    "src/components/components.js",
   ],
   "exclude": ["node_modules", "trashcan"],
-  "compileOnSave": false
+  "compileOnSave": false,
 }

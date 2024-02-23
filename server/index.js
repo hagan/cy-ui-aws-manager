@@ -1,3 +1,5 @@
+// Express/NextJS web server v0.0.5
+
 const http = require("http");
 const express = require("express");
 const { createTerminus } = require("@godaddy/terminus");
@@ -5,38 +7,60 @@ const next = require("next");
 const fs = require("fs");
 const path = require("path");
 const { exec } = require("child_process");
-const module = require("@deep/module");
 
 // $HOME/.env.local <= where we can put our environment vars
 const localEnvPath = path.join(process.env.HOME, ".env.local");
+require("dotenv").config({ path: localEnvPath });
 
-fs.access(localEnvPath, fs.constants.F_OK, (err) => {
-  if (err) {
-    console.error("$HOME/.env.local not found.");
-  } else {
-    require("dotenv").config({ path: localEnvPath });
-    if (process.env.NODE_SOCK) {
-      socketPath = process.env.NODE_SOCK;
-    }
-    // Your server setup code goes here
-  }
-});
+// Initial state
+var isDev = undefined;
+var socketPath = undefined;
 
-// Maybe need to add tests to check for Environment variables required for project?
-
-const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev });
-const handle = app.getRequestHandler();
-
-var socketPath = "/tmp/express.sock";
-if (process.env.NODE_SOCK) {
-  socketPath = process.env.NODE_SOCK;
+// console.log(`SOCKET_FILE: ${process.env.SOCKET_FILE}`);
+if (process.env.SOCKET_FILE) {
+  socketPath = process.env.SOCKET_FILE;
+} else {
+  socketPath = '/tmp/express.sock';
 }
 
+// console.log(`DEPLOY_TYPE: ${process.env.DEPLOY_TYPE}`);
+// Default to dev server
+if (
+  (process.env.DEPLOY_TYPE !== undefined) &&
+  ( (process.env.DEPLOY_TYPE === "production") || (process.env.DEPLOY_TYPE === "prod") )
+) {
+  // console.log(`DEPLOY_TYPE is production !?: ${process.env.DEPLOY_TYPE}`);
+  isDev = false;
+} else {
+  // console.log(`DEPLOY_TYPE is not production !?: ${process.env.DEPLOY_TYPE}`);
+  isDev = true;
+  socketPath = 3000;
+}
+
+if (socketPath !== 3000) {
+  // Not using a port, socket -- Check we can write to folder/directory
+  try {
+    fs.accessSync(path.dirname(socketPath), fs.constants.F_OK | fs.constants.W_OK);
+  } catch (err) {
+    if (err.code === 'ENOENT'){
+      console.error(`ERROR: The directory '${path.dirname(socketPath)}' does not exist!`);
+      process.exit(1);
+    } else {
+      console.error(`ERROR: The directory '${path.dirname(socketPath)}' is not writable!`);
+      process.exit(1);
+    }
+  }
+}
+
+/**
+ *   NextJS startup application
+ */
+const app = next({ isDev, dir: '.', quiet: false });
+const handle = app.getRequestHandler();
 app.prepare().then(() => {
-  /**
-   *   NextJS startup application
-   */
+
+  console.log(`ExpressJS starting up (dev: ${isDev}) on ${socketPath}`);
+
   const express_app = express();
 
   /* Test Expres app (returns ok) */
@@ -54,7 +78,6 @@ app.prepare().then(() => {
   function onSignal() {
     console.log("Server is starting cleanup");
     // cleanup of resourecs like databases or file descriptors
-
     // Remove our socket
     console.log(`Removing socket file: '${socketPath}`);
     if (fs.existsSync(socketPath)) {
@@ -75,9 +98,6 @@ app.prepare().then(() => {
     onSignal,
   });
 
-  // A simple Port based webserver
-  // server.listen(3000);
-
   // NOTE: Setup file permissions with acl & setgid and control file permissions
   /**
    * I.E.
@@ -91,8 +111,10 @@ app.prepare().then(() => {
    * Now Socket files made in /run/node/sockets can be r/w by Nginx/Apache
    * without r/w on node user owned files.
    */
+
   server.listen(socketPath, (err) => {
     if (err) throw err;
     console.log(` Ready on ${socketPath}`);
   });
+
 });

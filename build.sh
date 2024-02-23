@@ -8,6 +8,12 @@ if command -v npm >/dev/null 2>&1; then
     exit 1
   fi
   pushd $SCRIPT_DIR > /dev/null
+  ## rebuild NextJS
+  echo "*********************  BUILD NEXTJS  ***************************"
+  echo "Compiling inside: $(pwd)"
+  yarn run next build || { echo "ERROR: Issue with building NextJS module!!!"; exit 1; }
+  echo "***************************************************************"
+  ## yarn pack does not change anything if you don't do a version bump / clear cache!
   TGZ_FILE=$(yarn pack | awk -F'"' '{print $2}' | awk -F'/' '{print $NF}' | grep -Ev "^#|^$")
   if [ -z "${TGZ_FILE}" ]; then
     echo "ERROR: No tgz file generated: '${TGZ_FILE}'"

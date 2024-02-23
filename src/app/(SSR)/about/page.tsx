@@ -1,4 +1,4 @@
-import { Alert } from "@/components/bootstrap";
+import { Alert } from "@components/bootstrap";
 import Link from "next/link";
 
 export const metadata = {

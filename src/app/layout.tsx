@@ -2,7 +2,8 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { Container, SSRProvider } from "@/components/bootstrap";
+import { Container } from "@components/bootstrap";
+//, SSRProvider
 import NavBar from "./NavBar";
 import Head from "next/head";
 import metadata from "./metadata";
@@ -25,12 +26,12 @@ export default function RootLayout({
         <meta property="og:url" content={metadata.url} />
       </Head>
       <body className={inter.className}>
-        <SSRProvider>
+        {/* <SSRProvider> */}
           <NavBar />
           <main>
             <Container className="py-4">{children}</Container>
           </main>
-        </SSRProvider>
+        {/* </SSRProvider> */}
       </body>
     </html>
   );

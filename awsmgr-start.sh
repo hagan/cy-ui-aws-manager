@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
 
 if [ $(whoami) != 'node' ]; then
-  echo "ERROR: must run awsmgr-start as 'node' user. Currently running as: $(whoami)"
+  >&2 echo "ERROR: must run awsmgr-start as 'node' user. Currently running as: $(whoami)"
+  exit 1
+else
+  echo "Express service running as '$(whoami)'"
+fi
+
+if [[ "$(/usr/bin/yarn global dir)x" == "x" ]]; then
+  >&2 echo "ERROR: command 'yarn global dir' has returned nothing"
+  exit 1
+else
+  export YARN_DIR="$(/usr/bin/yarn global dir)" \
+    || { >&2 echo "Error getting yarn global dir!"; exit 1; }
+fi
+
+export AWSMGR_DIR="${YARN_DIR}/node_modules/awsmgr"
+if [ "${AWSMGR_DIR}/node_modules/awsmgr" == "/node_modules/awsmgr" ]; then
+  >&2 echo "ERROR: YARN_DIR was empty.."
   exit 1
 fi
 
-pushd $HOME
-export PATH=$HOME/node_modules/.bin:$PATH
-AWSMGR_DIR_LOCAL=$(npm list awsmgr --parseable) 2>/dev/null
-AWSMGR_DIR_GLOBAL=$(npm -g list awsmgr --parseable) 2>/dev/null
-
-if [ "x${AWSMGR_DIR_LOCAL}" == "x" ] && [ "x${AWSMGR_DIR_GLOBAL}" == "x" ]; then
-  echo "ERROR: npm package \"awsmgr may be missing..\""
-  echo " $ npm list or npm -g lsit to check if installed."
+if [ ! -d "${AWSMGR_DIR}" ]; then
+  >&2 echo "ERROR: ${AWSMGR_DIR} is not a directory!"
   exit 1
-elif [ ! -d "${AWSMGR_DIR_LOCAL}" ] && [ ! -d "${AWSMGR_DIR_GLOBAL}" ]; then
-  echo "ERROR: the node_modules directory for npm does not exist"
-  exit 1
-elif [ "x${AWSMGR_DIR_LOCAL}" != "x" ]; then
-  echo "cd ${AWSMGR_DIR_LOCAL} and start ExpressJS server..."
-  cd ${AWSMGR_DIR_LOCAL} && /usr/bin/npm run start-server
-elif [ "x${AWSMGR_DIR_GLOBAL}" == "x" ]; then
-  echo "cd ${AWSMGR_DIR_GLOBAL} and start ExpressJS server..."
-  cd ${AWSMGR_DIR_GLOBAL} && /usr/bin/npm -g run start-server
 fi
-popd
+
+(. /home/node/.env.local && cd ${AWSMGR_DIR} && /usr/bin/node server/index.js)

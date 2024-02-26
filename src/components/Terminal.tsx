@@ -11,7 +11,7 @@ interface TerminalComponentProps {
   height?: string; // Optional prop, with a default value provided
 }
 
-const TerminalComponent: React.FC<TerminalComponentProps> = ({src , width = '100%', height = '400px'}) => {
+const TerminalComponent: React.FC<TerminalComponentProps> = ({src , width = '80%', height = '400px'}) => {
   return (
     <iframe
       src={src}

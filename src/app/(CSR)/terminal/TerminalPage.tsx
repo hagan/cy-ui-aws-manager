@@ -1,5 +1,7 @@
-// app/(SSR)/terminal/page.tsx
+// app/(CSR)/terminal/page.tsx
+
 "use client";
+
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
@@ -8,7 +10,7 @@ const TerminalComponent = dynamic(() => import("@components/Terminal"), {
   ssr: false,
 });
 
-export default async function TerminalPage() {
+export default function TerminalPage() {
   const [shellUrl, setShellUrl] = useState("");
 
   useEffect(() => {

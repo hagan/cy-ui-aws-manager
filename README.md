@@ -118,3 +118,21 @@ Husky .git hooks (may not be needed after project created...)
     npx husky add .husky/pre-commit "npm run format:staged"
     npx husky add .husky/pre-commit "npm test"
 ```
+
+# Issues with yarn/node/nvm/npm...
+
+updating to yarn 4.1.0 issue
+
+```
+  cd /src/ui
+  # v21.6.2
+  nvm use stable
+  corepack enable
+  npm install
+  corepack up
+  yarn install
+  yarn --version
+  # yarn@4.1.0
+  yarn install
+
+```

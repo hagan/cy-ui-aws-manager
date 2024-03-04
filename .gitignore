@@ -54,6 +54,16 @@ internal/
 !tests/baselines/reference/project/nodeModules*/**/*
 .idea
 
+# Not using Zero-installs (look into this)
+.pnp.*
+.yarn/*
+#!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
 .parallelperf.*
 tests/baselines/reference/dt
 .failed-tests

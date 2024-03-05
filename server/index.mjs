@@ -26,9 +26,9 @@ function main() {
   var isDev = undefined;
   var socketPath = undefined;
 
-  // console.log(`SOCKET_FILE: ${process.env.SOCKET_FILE}`);
-  if (process.env.SOCKET_FILE) {
-    socketPath = process.env.SOCKET_FILE;
+  // console.log(`EXPRESS_SOCKET_FILE: ${process.env.EXPRESS_SOCKET_FILE}`);
+  if (process.env.EXPRESS_SOCKET_FILE) {
+    socketPath = process.env.EXPRESS_SOCKET_FILE;
   } else {
     socketPath = "/tmp/express.sock";
   }

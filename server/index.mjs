@@ -129,6 +129,12 @@ function main() {
      * without r/w on node user owned files.
      */
 
+    server.on("error", (error) => {
+      console.error("################################################");
+      console.error("An error occurred: ", error);
+      console.error("################################################");
+    });
+
     server.listen(socketPath, (err) => {
       if (err) throw err;
       console.log(` Ready on ${socketPath}`);

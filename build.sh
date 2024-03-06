@@ -16,6 +16,10 @@ if command -v yarn >/dev/null 2>&1; then
   yarn run build || { echo "ERROR: Issue with building NextJS module!!!"; exit 1; }
   echo "***************************************************************"
   ## yarn pack does not change anything if you don't do a version bump / clear cache!
+
+  #check if yarn is the correct version!
+  corepack enable
+  yarn set version canary
   yarn run pack
   # TGZ_FILE=$(yarn pack | awk -F'"' '{print $2}' | awk -F'/' '{print $NF}' | grep -Ev "^#|^$")
   # if [ -z "${TGZ_FILE}" ]; then

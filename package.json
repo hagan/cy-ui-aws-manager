@@ -34,7 +34,6 @@
     "package.json",
     "yarn.lock",
     "package-lock.json",
-    "yarn.lock",
     "postcss.config.js",
     "server",
     "src",
@@ -112,5 +111,5 @@
     "xterm-addon-web-links": "^0.9.0",
     "xterm-addon-webgl": "^0.16.0"
   },
-  "packageManager": "yarn@4.1.0+sha256.81a00df816059803e6b5148acf03ce313cad36b7f6e5af6efa040a15981a6ffb"
+  "packageManager": "yarn@4.1.1"
 }

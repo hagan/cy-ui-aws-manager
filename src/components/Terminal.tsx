@@ -1,5 +1,7 @@
 // components/Terminal.tsx
 "use client";
+// import { ITerminalOptions, ITheme } from '@xterm/xterm';
+
 // , { useEffect, useRef }
 import React from "react";
 // import { Terminal } from "xterm";
@@ -11,19 +13,36 @@ interface TerminalComponentProps {
   height?: string; // Optional prop, with a default value provided
 }
 
-const TerminalComponent: React.FC<TerminalComponentProps> = ({src , width = '80%', height = '400px'}) => {
+const TerminalComponent: React.FC<TerminalComponentProps> = ({
+  src,
+  width = "80%",
+  height = "400px",
+}) => {
   return (
-    <iframe
-      src={src}
-      width={width}
-      height={height}
-      style={{ border: 'none'}}
-      title="Ttyd Terminal"
-    ></iframe>
+    <div
+      style={{
+        width,
+        height,
+        backgroundColor: "grey",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      {/* If you want to add any text or elements inside the grey box, you can add them here */}
+    </div>
   );
 
+  // return (
+  //   <iframe
+  //     src={src}
+  //     width={width}
+  //     height={height}
+  //     style={{ border: 'none'}}
+  //     title="Ttyd Terminal"
+  //   ></iframe>
+  // );
 };
-
 
 // const TerminalComponent: React.FC = () => {
 //   // Use `HTMLDivElement` to provide a type for the ref.
